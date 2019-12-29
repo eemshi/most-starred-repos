@@ -11,7 +11,7 @@ server.get('/most-stars', async (req, res) => {
             `https://api.github.com/search/repositories?q=stars:>=100&sort=stars&per_page=${limit}`
         );
         const repositories = body.data.items.map(repo => {
-            return _.pick(repo, ['id', 'full_name', 'url', 'stargazers_count']);
+            return _.pick(repo, ['id', 'name', 'owner', 'description', 'url', 'stargazers_count']);
         });
         res.json(repositories);
     } catch (err) {
