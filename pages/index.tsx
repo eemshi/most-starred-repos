@@ -1,13 +1,22 @@
+import React from 'react';
 import { NextPage } from 'next';
 import axios from 'axios';
 
-const Home: NextPage<{ data: object | undefined }> = ({ data }) => (
-    <h1>Hello world - user agent: {data}</h1>
-);
+const { useState, useEffect } = React;
 
-Home.getInitialProps = async () => {
-    const data = await axios.get('/most-stars');
-    return data;
+const Home: NextPage = () => {
+    const [repos, setRepos] = useState([]);
+
+    const getRepos = async () => {
+        const res = await axios.get('/most-stars', { params: { limit: 3 } });
+        setRepos(res.data);
+    };
+
+    useEffect(() => {
+        getRepos();
+    });
+
+    return <h1>{JSON.stringify(repos)}</h1>;
 };
 
 export default Home;

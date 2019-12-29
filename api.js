@@ -5,16 +5,13 @@ const _ = require('lodash');
 const server = express();
 
 server.get('/most-stars', async (req, res) => {
+    const limit = req.query.limit ? req.query.limit : 100
     try {
         const body = await axios.get(
-            "https://api.github.com/search/repositories?q=stars:>=18500000"
+            `https://api.github.com/search/repositories?q=stars:>=100&sort=stars&per_page=${limit}`
         );
         const repositories = body.data.items.map(repo => {
-            return _.pick(repo, [
-                'id',
-                'url',
-                'stargazers_count'
-            ]);
+            return _.pick(repo, ['id', 'full_name', 'url', 'stargazers_count']);
         });
         res.json(repositories);
     } catch (err) {
