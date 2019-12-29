@@ -2,9 +2,11 @@
 @black: #121212;
 @white: whitesmoke;
 @darkgray: #1d1d1d;
-@lightgray: #ccc;
+// @mediumgray: #2a2a2a;
+@lightgray: #bbb;
 @lavender: #bb86fc;
 @teal: #03dac6;
+// @purple: #3700b3;
 @error: #cf6679;
 
 body {
@@ -43,7 +45,7 @@ a {
 
 .container {
     margin: auto;
-    max-width: 1000px;
+    max-width: 1200px;
 }
 
 .error {
@@ -86,16 +88,54 @@ a {
                 cursor: pointer;
                 color: @teal;
                 font-size: 12px;
-                background-color: @darkgray;
+                font-weight: 400;
+                background-color: rgba(0, 0, 0, 0);
                 border: 1px solid @teal;
                 border-radius: 3px;
                 padding: 1.75px 4px 2.5px 4px;
+            }
+
+            table {
+                th {
+                    color: @teal;
+                }
+                border-collapse: collapse;
+                tr {
+                    border-bottom: 1px solid @lightgray;
+                }
+                a {
+                    color: @white;
+                    text-decoration: none;
+                }
+            }
+
+            .commit-message {
+                padding: 15px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .commit-author,
+            .commit-date {
+                white-space: nowrap;
+            }
+
+            .commit-date {
+                text-align: right;
             }
         }
     }
 
     .expanded {
         width: 100%;
+
+        .repo-card {
+            button {
+                background-color: @teal;
+                color: @darkgray;
+                font-weight: 700;
+            }
+        }
     }
 }
 

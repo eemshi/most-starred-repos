@@ -13,12 +13,11 @@ export interface ICommit {
     html_url: string,
     commit: {
         author: {
-            name: string,
             date: string
         },
         message: string
     },
     author: {
-        avatar_url: string
+        login: string
     }
 }

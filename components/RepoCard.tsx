@@ -3,6 +3,7 @@ import '../styles.less';
 import { IRepo, ICommit } from '../types';
 import { Error } from './index';
 import axios from 'axios';
+import { DateTime } from 'luxon';
 
 const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
     const { name, owner, html_url, stargazers_count } = repo;
@@ -41,15 +42,21 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
             return (
                 <div>
                     <h3>In the last 24 hours...</h3>
-                    <ul>
+                    <table>
                         {commits?.map(commit => (
-                            <li key={commit.sha}>
-                                <a href={commit.html_url}>
-                                    {commit.commit.message}
-                                </a>
-                            </li>
+                            <tr key={commit.sha}>
+                                <td className="commit-author">{commit.author.login}</td>
+                                <td className="commit-message">
+                                    <a href={commit.html_url}>{commit.commit.message}</a>
+                                </td>
+                                <td className="commit-date">
+                                    {DateTime.fromISO(commit.commit.author.date).toFormat(
+                                        'MMM d, h:mm a'
+                                    )}
+                                </td>
+                            </tr>
                         ))}
-                    </ul>
+                    </table>
                 </div>
             );
         }
