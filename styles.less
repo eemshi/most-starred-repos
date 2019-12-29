@@ -17,11 +17,24 @@ body {
 
 header {
     text-align: center;
+}
 
-    h1 {
-        font-weight: normal;
-        margin-bottom: 25px;
-    }
+h1,
+h2,
+h3 {
+    font-weight: normal;
+}
+
+h1 {
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin: 0;
+}
+
+h3 {
+    font-style: italic;
 }
 
 a {
@@ -35,7 +48,6 @@ a {
 
 .error {
     color: @error;
-    text-align: center;
 }
 
 .repo-grid {
@@ -52,16 +64,6 @@ a {
             border-radius: 5px;
             margin: 10px;
             padding: 15px;
-
-            h2 {
-                margin: 0;
-                font-weight: normal;
-            }
-
-            h3 {
-                font-style: italic;
-                font-weight: normal;
-            }
 
             button,
             .owner,

@@ -35,7 +35,9 @@ const Home: NextPage = () => {
                 <h1>Most Popular Github Repos</h1>
             </header>
             {error ? (
-                <Error message={error} />
+                <div style={{ textAlign: 'center' }}>
+                    <Error message={error} />
+                </div>
             ) : (
                 <div className="repo-grid">{repos ? _renderRepos() : <Loader />}</div>
             )}

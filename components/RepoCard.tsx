@@ -29,6 +29,7 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
         setIsExpanded(!isExpanded);
     };
 
+    // TODO: move to own?
     const _renderCommits = () => {
         if (error) {
             return <Error message={error} />;

@@ -4,6 +4,8 @@ const _ = require('lodash');
 
 const server = express();
 
+// TODO: send more complete error messages?
+
 server.get('/most-stars', async (req, res) => {
     const limit = req.query.limit ? req.query.limit : 100;
     try {
