@@ -9,6 +9,8 @@ const { useState, useEffect } = React;
 const Home: NextPage = () => {
     const [repos, setRepos] = useState<[IRepo] | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [showAll, setShowAll] = useState(false);
+    const [hideAll, setHideAll] = useState(false);
 
     const _getRepos = async () => {
         try {
@@ -25,8 +27,17 @@ const Home: NextPage = () => {
         }
     });
 
-    const _renderRepos = () => {
-        return repos?.map(repo => <RepoCard key={repo.id} repo={repo} />);
+    const _RepoGrid = () => {
+        return (
+            <div className="repo-grid-wrapper">
+                <button>SHOW ALL COMMITS</button>
+                <div className="repo-grid">
+                    {repos?.map(repo => (
+                        <RepoCard key={repo.id} repo={repo} />
+                    ))}
+                </div>
+            </div>
+        );
     };
 
     return (
@@ -34,13 +45,9 @@ const Home: NextPage = () => {
             <header>
                 <h1>Most Popular Github Repos</h1>
             </header>
-            {error ? (
-                <div style={{ textAlign: 'center' }}>
-                    <Error message={error} />
-                </div>
-            ) : (
-                <div className="repo-grid">{repos ? _renderRepos() : <Loader />}</div>
-            )}
+            <section>
+                {error ? <Error message={error} /> : repos ? <_RepoGrid /> : <Loader />}
+            </section>
         </div>
     );
 };
