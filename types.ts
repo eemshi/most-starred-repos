@@ -8,3 +8,17 @@ export interface IRepo {
     url: string;
     stargazers_count: number;
 }
+
+export interface ICommit {
+    commit: {
+        author: {
+            name: string,
+            date: string
+        },
+        message: string,
+        url: string
+    },
+    author: {
+        avatar_url: string
+    }
+}

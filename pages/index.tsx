@@ -9,14 +9,14 @@ const { useState, useEffect } = React;
 const Home: NextPage = () => {
     const [repos, setRepos] = useState<[IRepo] | null>(null);
 
-    const getRepos = async () => {
+    const _getRepos = async () => {
         const res = await axios.get('/most-stars', { params: { limit: 10 } });
         setRepos(res.data);
     };
 
     useEffect(() => {
         if (!repos) {
-            getRepos();
+            _getRepos();
         }
     });
 

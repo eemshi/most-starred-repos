@@ -20,11 +20,11 @@ server.get('/most-stars', async (req, res) => {
 });
 
 server.get('/commits', async (req, res) => {
-    const { owner, repo } = req.query;
+    const { owner, name } = req.query;
     const thisTimeYesterday = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
     try {
         const body = await axios.get(
-            `https://api.github.com/repos/${owner}/${repo}/commits?since=${thisTimeYesterday}`
+            `https://api.github.com/repos/${owner}/${name}/commits?since=${thisTimeYesterday}`
         );
         const commits = body.data.map(commit => {
             return _.pick(commit, ['commit', 'author']);
