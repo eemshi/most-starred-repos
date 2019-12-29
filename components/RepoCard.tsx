@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles.less';
 import { IRepo, ICommit } from '../types';
+import { Error } from './index';
 import axios from 'axios';
 
 const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
@@ -8,10 +9,17 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
 
     const [isExpanded, setIsExpanded] = React.useState(false);
     const [commits, setCommits] = React.useState<[ICommit] | null>(null);
+    const [error, setError] = React.useState<string | null>(null);
 
     const _getCommits = async () => {
-        const res = await axios.get('/commits', { params: { name, owner: owner.login } });
-        setCommits(res.data);
+        try {
+            const res = await axios.get('/commits', {
+                params: { name, owner: owner.login }
+            });
+            setCommits(res.data);
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     const _toggleCommits = () => {
@@ -22,13 +30,16 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
     };
 
     const _renderCommits = () => {
-        if (commits) {
-            if (!commits.length) {
-                return <p>No commits from the last 24 hours</p>;
-            }
+        if (error) {
+            return <Error message={error} />;
+        }
+        if (!commits) {
+            return <p>Checking repo...</p>;
+        }
+        if (commits.length) {
             return (
                 <div>
-                    <h4>Commits from the last 24 hours</h4>
+                    <h3>In the last 24 hours...</h3>
                     <ul>
                         {commits?.map(commit => (
                             <li>{commit.commit.message}</li>
@@ -37,14 +48,14 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
                 </div>
             );
         }
-        return <p>Checking repo...</p>
+        return <p>No commits in the last 24 hours</p>;
     };
 
     return (
         <div className={`repo-card-wrapper ${isExpanded ? 'expanded' : ''}`}>
             <div className="repo-card">
                 <a href={url}>
-                    <h3>{name}</h3>
+                    <h2>{name}</h2>
                 </a>{' '}
                 <p className="owner">{owner.login}</p>
                 <p className="stars">★ {stargazers_count}</p>

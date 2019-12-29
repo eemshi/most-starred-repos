@@ -1,24 +1,27 @@
+@roboto: 'Roboto', Arial, Helvetica, sans-serif;
 @black: #121212;
+@white: whitesmoke;
 @darkgray: #1d1d1d;
 @lightgray: #ccc;
 @lavender: #bb86fc;
 @teal: #03dac6;
+@error: #cf6679;
 
 body {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: @roboto;
     font-size: 15px;
     background-color: @black;
-    color: whitesmoke;
-    padding: 2rem;
+    color: @white;
+    padding: 15px;
 }
 
 header {
     text-align: center;
-}
 
-h3 {
-    margin: 0;
-    font-weight: normal;
+    h1 {
+        font-weight: normal;
+        margin-bottom: 25px;
+    }
 }
 
 a {
@@ -30,34 +33,126 @@ a {
     max-width: 1000px;
 }
 
+.error {
+    color: @error;
+    text-align: center;
+}
+
 .repo-grid {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
     .repo-card-wrapper {
         width: 25%;
+
         .repo-card {
             background-color: @darkgray;
             border: 1px solid @darkgray;
-            border-radius: 0.5rem;
+            border-radius: 5px;
             margin: 10px;
             padding: 15px;
+
+            h2 {
+                margin: 0;
+                font-weight: normal;
+            }
+
+            h3 {
+                font-style: italic;
+                font-weight: normal;
+            }
+
+            button,
             .owner,
             .stars {
                 margin: 0;
                 letter-spacing: 0.5px;
             }
+
             .owner {
                 color: @lightgray;
                 font-size: 13px;
                 font-style: italic;
             }
+
             .stars {
                 text-align: right;
             }
+
+            button {
+                cursor: pointer;
+                color: @teal;
+                font-size: 12px;
+                background-color: @darkgray;
+                border: 1px solid @teal;
+                border-radius: 3px;
+                padding: 1.75px 4px 2.5px 4px;
+            }
         }
     }
+
     .expanded {
         width: 100%;
+    }
+}
+
+/* ellipsis loader courtesy of
+https://loading.io/css/ */
+
+.lds-ellipsis {
+    margin: auto;
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: @teal;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(19px, 0);
     }
 }
