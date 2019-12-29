@@ -5,7 +5,7 @@ import { Error } from './index';
 import axios from 'axios';
 
 const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
-    const { name, owner, description, url, stargazers_count } = repo;
+    const { name, owner, html_url, stargazers_count } = repo;
 
     const [isExpanded, setIsExpanded] = React.useState(false);
     const [commits, setCommits] = React.useState<[ICommit] | null>(null);
@@ -43,7 +43,11 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
                     <h3>In the last 24 hours...</h3>
                     <ul>
                         {commits?.map(commit => (
-                            <li>{commit.commit.message}</li>
+                            <li key={commit.sha}>
+                                <a href={commit.html_url}>
+                                    {commit.commit.message}
+                                </a>
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -55,7 +59,7 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
     return (
         <div className={`repo-card-wrapper ${isExpanded ? 'expanded' : ''}`}>
             <div className="repo-card">
-                <a href={url}>
+                <a href={html_url}>
                     <h2>{name}</h2>
                 </a>{' '}
                 <p className="owner">{owner.login}</p>

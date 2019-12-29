@@ -13,7 +13,7 @@ server.get('/most-stars', async (req, res) => {
             `https://api.github.com/search/repositories?q=stars:>=100&sort=stars&per_page=${limit}`
         );
         const repositories = body.data.items.map(repo => {
-            return _.pick(repo, ['id', 'name', 'owner', 'description', 'url', 'stargazers_count']);
+            return _.pick(repo, ['id', 'name', 'owner', 'html_url', 'stargazers_count']);
         });
         res.json(repositories);
     } catch (err) {
@@ -29,7 +29,7 @@ server.get('/commits', async (req, res) => {
             `https://api.github.com/repos/${owner}/${name}/commits?since=${thisTimeYesterday}`
         );
         const commits = body.data.map(commit => {
-            return _.pick(commit, ['commit', 'author']);
+            return _.pick(commit, ['sha', 'html_url', 'commit', 'author']);
         });
         res.json(commits);
     } catch (err) {
