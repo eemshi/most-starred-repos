@@ -10,7 +10,7 @@ const Home: NextPage = () => {
     const [repos, setRepos] = useState<[IRepo] | null>(null);
 
     const getRepos = async () => {
-        const res = await axios.get('/most-stars', { params: { limit: 3 } });
+        const res = await axios.get('/most-stars', { params: { limit: 10 } });
         setRepos(res.data);
     };
 
@@ -30,7 +30,9 @@ const Home: NextPage = () => {
 
     return (
         <div className="container">
-            <h1>Most Popular Github Repos</h1>
+            <header>
+                <h1>Most Popular Github Repos</h1>
+            </header>
             <div className="repo-grid">{repos ? _renderRepos() : <Loader />}</div>
         </div>
     );
