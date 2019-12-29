@@ -1,12 +1,13 @@
 import { NextPage } from 'next';
+import axios from 'axios';
 
-const Home: NextPage<{ userAgent: string | undefined }> = ({ userAgent }) => (
-    <h1>Hello world! - user agent: {userAgent}</h1>
+const Home: NextPage<{ data: object | undefined }> = ({ data }) => (
+    <h1>Hello world - user agent: {data}</h1>
 );
 
-Home.getInitialProps = async ({ req }) => {
-    const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
-    return { userAgent };
+Home.getInitialProps = async () => {
+    const data = await axios.get('/most-stars');
+    return data;
 };
 
 export default Home;
