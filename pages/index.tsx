@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import axios from 'axios';
+import '../styles.less';
 import { IRepo } from '../types';
 import { Error, Loader, RepoCard } from '../components/index';
 

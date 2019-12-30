@@ -1,16 +1,17 @@
 import React from 'react';
-import '../styles.less';
-import { IRepo, ICommit } from '../types';
-import { Error } from './index';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import { IRepo, ICommit } from '../types';
+import { Error } from './index';
 
-const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
+const { useState } = React;
+
+const RepoCard: React.FunctionComponent<{ repo: IRepo }> = ({ repo }) => {
     const { name, owner, html_url, stargazers_count } = repo;
 
-    const [isExpanded, setIsExpanded] = React.useState(false);
-    const [commits, setCommits] = React.useState<[ICommit] | null>(null);
-    const [error, setError] = React.useState<string | null>(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [commits, setCommits] = useState<[ICommit] | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const _getCommits = async () => {
         try {
@@ -42,21 +43,23 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
             return (
                 <div>
                     <h3>In the last 24 hours...</h3>
-                    <table>
+                    <ul>
                         {commits?.map(commit => (
-                            <tr key={commit.sha}>
-                                <td className="commit-author">{commit.author.login}</td>
-                                <td className="commit-message">
-                                    <a href={commit.html_url}>{commit.commit.message}</a>
-                                </td>
-                                <td className="commit-date">
+                            <li key={commit.sha}>
+                                <a href={commit.html_url}>{commit.commit.message}</a>
+                                <br />
+                                <span className="commit-author">
+                                    {commit.author.login}
+                                </span>{' '}
+                                <span className="commit-date">
+                                    committed at{' '}
                                     {DateTime.fromISO(commit.commit.author.date).toFormat(
                                         'MMM d, h:mm a'
                                     )}
-                                </td>
-                            </tr>
+                                </span>
+                            </li>
                         ))}
-                    </table>
+                    </ul>
                 </div>
             );
         }
@@ -66,9 +69,9 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
     return (
         <div className={`repo-card-wrapper ${isExpanded ? 'expanded' : ''}`}>
             <div className="repo-card">
-                <a href={html_url}>
-                    <h2>{name}</h2>
-                </a>{' '}
+                <h2>
+                    <a href={html_url}>{name}</a>
+                </h2>
                 <p className="owner">{owner.login}</p>
                 <p className="stars">★ {stargazers_count}</p>
                 <button onClick={_toggleCommits}>
@@ -81,7 +84,3 @@ const RepoCard: React.FunctionComponent<IRepoCardProps> = ({ repo }) => {
 };
 
 export default RepoCard;
-
-export interface IRepoCardProps {
-    repo: IRepo;
-}
