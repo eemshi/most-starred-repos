@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
     const _getRepos = async () => {
         try {
-            const res = await axios.get('/most-stars', { params: { limit: 10 } });
+            const res = await axios.get('/most-stars', { params: { limit: 100 } });
             setRepos(res.data);
         } catch (err) {
             setError(err.message);
