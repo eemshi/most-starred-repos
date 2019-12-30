@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { DateTime } from 'luxon';
 import { IRepo, ICommit } from '../types';
-import { Error } from './index';
+import { Error, Loader } from './index';
 
 const { useState } = React;
 
@@ -37,11 +37,11 @@ const RepoCard: React.FunctionComponent<{ repo: IRepo }> = ({ repo }) => {
             return <Error message={error} />;
         }
         if (!commits) {
-            return <p>Checking repo...</p>;
+            return <Loader />;
         }
         if (commits.length) {
             return (
-                <div>
+                <>
                     <h3>In the last 24 hours...</h3>
                     <ul>
                         {commits?.map(commit => (
@@ -60,7 +60,7 @@ const RepoCard: React.FunctionComponent<{ repo: IRepo }> = ({ repo }) => {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </>
             );
         }
         return <p>No commits in the last 24 hours</p>;
@@ -69,15 +69,21 @@ const RepoCard: React.FunctionComponent<{ repo: IRepo }> = ({ repo }) => {
     return (
         <div className={`repo-card-wrapper ${isExpanded ? 'expanded' : ''}`}>
             <div className="repo-card">
-                <h2>
-                    <a href={html_url}>{name}</a>
-                </h2>
-                <p className="owner">{owner.login}</p>
-                <p className="stars">★ {stargazers_count}</p>
-                <button onClick={_toggleCommits}>
-                    {isExpanded ? 'Hide Commits' : 'Commits'}
-                </button>
-                {isExpanded && _renderCommits()}
+                <div>
+                    <h2>
+                        <a href={html_url}>{name}</a>
+                    </h2>
+                    <p className="owner">{owner.login}</p>
+                    <p className="stars">★ {stargazers_count}</p>
+                </div>
+                <div>
+                    <button onClick={_toggleCommits}>
+                        {isExpanded ? 'Hide Commits' : 'Commits'}
+                    </button>
+                </div>
+                {isExpanded && (
+                    <div style={{ marginTop: '10px' }}>{_renderCommits()}</div>
+                )}
             </div>
         </div>
     );
