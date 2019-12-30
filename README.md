@@ -1,22 +1,25 @@
 # Most ★ Repos
 
+Next.js app with server-side rendered React/TypeScript frontend, and Express.js for custom API endpoints. Styled with LESS from scratch. Formatted with Prettier + pre-commit hook.
+
 Project board: [https://github.com/eemshi/most-starred-repos/projects/1](https://github.com/eemshi/most-starred-repos/projects/1)
 
 ## Future
 
-Next steps
-- Better UI for expanding card to show commits
-  - Modal overlay?
-  - Get feedback from a UX designer
-- Refine API param names & responses/errors
+Next To Do's
+- Add `title` attribute to links
+- Refine API params, responses & errors to be more specific
 - Testing with Jest
   - Frontend + React Testing Library
   - API + Supertest
+- Better UI for expanding card to show commits
+  - Modal overlay?
+  - Consult a UX designer
 
 v2
+- GraphQL layer with Apollo and caching
 - Toggle between Light/Dark mode
-- Pagination
-- GraphQL layer with Apollo and caching?
+- Pagination?
 
 ---
 
