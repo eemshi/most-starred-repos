@@ -9,11 +9,12 @@ Next steps
 - Testing with Jest
   - Frontend + React Testing Library
   - API + Supertest
+
+v2
 - Get feedback from a UX designer
 - Toggle between Light/Dark mode
-
-v2 ?
-- GraphQL layer with Apollo and caching
+- Pagination
+- GraphQL layer with Apollo and caching?
 
 ---
 
