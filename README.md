@@ -5,13 +5,15 @@ Project board: [https://github.com/eemshi/most-starred-repos/projects/1](https:/
 ## Future
 
 Next steps
+- Better UI for expanding card to show commits
+  - Modal overlay?
+  - Get feedback from a UX designer
 - Refine API param names & responses/errors
 - Testing with Jest
   - Frontend + React Testing Library
   - API + Supertest
 
 v2
-- Get feedback from a UX designer
 - Toggle between Light/Dark mode
 - Pagination
 - GraphQL layer with Apollo and caching?
@@ -42,10 +44,7 @@ The app is now available at http://localhost:3000
 
 ## API
 
-### `/most-stars`
-```
-GET /most-stars?limit={number_of_repos}
-```
+### `GET /most-stars?limit={number_of_repos}`
 ### Reponse
 ```
 [
@@ -103,10 +102,7 @@ GET /most-stars?limit={number_of_repos}
 
 ---
 
-### `/commits`
-```
-GET /commits?owner={repo_owner_username}&name={repo_name}
-```
+### `GET /commits?owner={repo_owner_username}&name={repo_name}`
 ### Response
 ```
 [
